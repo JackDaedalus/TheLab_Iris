@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>dccf66f1-fc8a-47bf-9950-cc407e8c8c1a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>IrisML.py</StartupFile>
+    <StartupFile>CA2.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +21,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CA2.py" />
+    <Compile Include="Iris_MachineLearning.py" />
     <Compile Include="IrisML.py" />
+    <Compile Include="Madsen_Durina_Finnegan.py" />
+    <Compile Include="module1.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

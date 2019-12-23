@@ -13,14 +13,14 @@ print('Python: {}'.format(sys.version))
 import scipy
 print('scipy: {}'.format(scipy.__version__))
 # numpy
-import numpy
-print('numpy: {}'.format(numpy.__version__))
+import numpy as np
+print('numpy: {}'.format(np.__version__))
 # matplotlib
 import matplotlib
 print('matplotlib: {}'.format(matplotlib.__version__))
 # pandas
-import pandas
-print('pandas: {}'.format(pandas.__version__))
+import pandas as pd
+print('pandas: {}'.format(pd.__version__))
 # scikit-learn
 import sklearn
 print('sklearn: {}'.format(sklearn.__version__))
@@ -28,6 +28,8 @@ print('sklearn: {}'.format(sklearn.__version__))
 
 
 # Load libraries
+import seaborn as sns
+import matplotlib.pyplot as plt
 from pandas import read_csv
 from pandas.plotting import scatter_matrix
 from matplotlib import pyplot
@@ -60,6 +62,9 @@ def MainProg_IrisML():
     # Display some basic initial statistics about dataset
 	# This data will be used to inform follow up data cleansing actions
     DisplayBasicDataFrameInfo(df_Iris,sDataDescription)
+
+    # Extend analysis of data set with visualisations
+    DisplayDataVisualization(df_Iris,sDataDescription)
        
 
     # Dummy Function used to avoid format errors in main function
@@ -108,6 +113,49 @@ def DisplayBasicDataFrameInfo(df, sDatasetDescription):
     # class distribution
     print("\n\tDisplay the Dataset class distribution for : {}..\n".format(sDatasetDescription))
     print(df.groupby('class').size())
+
+
+
+def DisplayDataVisualization(df, sDatasetDescription):
+
+    CheckDatasetForCorrelation(df, sDatasetDescription)
+    PrintCorrelationGraphic(df, sDatasetDescription)
+
+
+
+def CheckDatasetForCorrelation(dataset, dataDescription):
+
+	print("\nCheck {} Dataset For any Correlation between features : \n".format(dataDescription))
+	print(dataset.corr())
+
+    # Correlation analysis - a graphical representation of possible correlation of data
+	# sns.heatmap(dataset.corr(), annot=True, fmt='.2f')
+    # Pause
+	anykey = input("Press any key..")
+
+
+def PrintCorrelationGraphic(dataset, dataDescription):
+
+    print("\nDisplay Correlation matrix for Dataset {} : \n".format(dataDescription))
+    plt.matshow(dataset.corr())
+    plt.show()
+
+    # Pause
+    anykey = input("Press any key..")
+
+
+
+    f, ax = plt.subplots(figsize=(10, 8))
+    corr = dataset.corr()
+    sns.heatmap(corr, mask=np.zeros_like(corr, dtype=np.bool), cmap=sns.diverging_palette(220, 10, as_cmap=True), square=True, ax=ax)
+    
+    # Pause
+    anykey = input("Press any key..")
+
+
+     
+
+
 
     
 
