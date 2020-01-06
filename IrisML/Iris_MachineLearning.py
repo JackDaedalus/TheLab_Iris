@@ -37,10 +37,10 @@ def Main_IrisML():
     # Set PyCharm Display Option
     # This is done to improve console display
     # for use in documentented screen shots
-    desired_width=320
-    pd.set_option('display.width', 400)
-    np.set_printoptions(linewidth=10)
-    pd.set_option('display.max_columns',15)
+    #desired_width=520
+    #pd.set_option('display.width', 600)
+    #np.set_printoptions(linewidth=10)
+    #pd.set_option('display.max_columns',15)
 
 
     # Set up file identifier for use in Console Print statements
@@ -107,13 +107,13 @@ def PreSplitDataManipulation(dataset, datasetDescription):
     # Check for Null Values
     print("\n\tChecking for Null Values in {} Dataset - Result : {}\n".format(datasetDescription, dataset.isnull().values.any()))
     # Pause
-    anykey = input("\nPress any key..")
+    #anykey = input("\nPress any key..")
 
     # Check for Duplicates
     numOfDuplicatedRows = dataset.duplicated().value_counts()
     print("\n\tChecking for Duplicate Rows in {} Dataset - Result : {}\n\n".format(datasetDescription, numOfDuplicatedRows))
     # Pause
-    anykey = input("\nPress any key..")
+    #anykey = input("\nPress any key..")
 
     # Converting Categorical features into Numerical features - most algorithms need numeric values
     # Just one column - the 'Flower Class' needs to be converted from a Categorical Values
@@ -124,7 +124,7 @@ def PreSplitDataManipulation(dataset, datasetDescription):
 
 
     # Pause
-    anykey = input("Press any key..")
+    #anykey = input("Press any key..")
     
     dataset['class'] = dataset['class'].apply(ConvertFlowerClass)
     final_data = dataset
@@ -134,7 +134,7 @@ def PreSplitDataManipulation(dataset, datasetDescription):
     print(final_data.head(2))
 
     # Pause
-    anykey = input("Press any key..")
+    #anykey = input("Press any key..")
 
     # Pre-Split Data Preparation
     # Hidden missing values - check the zeroes - we already checked for NULL
@@ -155,9 +155,17 @@ def CheckDatasetForCorrelation(dataset, dataDescription):
     print("\n\tCheck {} Dataset For any Correlation between features (Categorical features converted into Numerics): \n".format(dataDescription))
     print(dataset.corr())
     # Correlation analysis - a graphical representation of possible correlation of data
-    sns.heatmap(dataset.corr(), annot=True, fmt='.2f')
+    plt.figure(figsize=(10,7))
+    ax = sns.heatmap(dataset.corr(), annot=True, fmt='.2f', xticklabels=True, yticklabels=True)
+    bottom, top = ax.get_ylim()
+    ax.set_ylim(bottom + 0.5, top - 0.5)
+    ax.set_yticklabels(ax.get_yticklabels(), va="center", rotation = 0)
+    plt.title("Correlation Table for IRIS Database")
+    plt.xlabel("X Label")
+    plt.ylabel("Y Label")
+    plt.show()
     # Pause
-    anykey = input("Press any key..")
+    #anykey = input("Press any key..")
 
 
 Main_IrisML()
