@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pandas.plotting import scatter_matrix
 
 
 
@@ -24,35 +25,53 @@ def ReadDataframe():
 
     # Load dataset
     url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/iris.csv"
-    names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
-
+    arrColNames = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
+    sDSClassCol = 'class'
     print("\n\tLoading the Dataset from URL : {}..\n".format(url))
     
-    dataset = pd.read_csv(url, names=names)
+    dataset = pd.read_csv(url, names=arrColNames)
+
+   
+    return dataset, arrColNames, sDSClassCol
 
 
-    return dataset
 
+def DisplayBasicDataFrameInfo(dataset, datasetDescription, sClass):
+    
+    # Shape
+    print("\n\t{} Dataset Dimensions (Shape): \n".format(datasetDescription))
+    print(dataset.shape)
 
-
-def DisplayBasicDataFrameInfo(dataset, datasetDescription):
-
+    # Display Head rows in dataset
     print("\n\t{} Dataset Head Rows : \n".format(datasetDescription))
     print(dataset.head())
-    print("\n\t{} Dataset Dimensions : \n".format(datasetDescription))
-    print(dataset.shape)
-    print("\n\t{} Dataset Datatypes : \n".format(datasetDescription))
-    print(dataset.dtypes)
-    print("\n\t{} Dataset 'Info()' : \n".format(datasetDescription))
-    print(dataset.info())
+
+    # Describe - present a summary of dataset attributes
     print("\n\t{} Dataset 'Describe()' : \n".format(datasetDescription))
     print(dataset.describe())
+
+    # dTtpes - present the data types for each attribute in the dataset
+    print("\n\t{} Dataset Datatypes : \n".format(datasetDescription))
+    print(dataset.dtypes)
+
+    # Class distribution - present the count of the number of rows that 
+    # belong to each class in the dataset
+    print("\n\t{} Dataset Class Distribution : \n".format(datasetDescription))
+    print(dataset.groupby(sClass).size())
+
+    # Info
+    print("\n\t{} Dataset 'Info()' : \n".format(datasetDescription))
+    print(dataset.info())
+
+    # Check for Correlation before all features converted to numeric
+    CheckDatasetForCorrelation(dataset, datasetDescription + " (BEFORE Categorical Conversion)")
+
 
 
 
 def CheckDatasetForCorrelation(dataset, dataDescription):
 
-    print("\n\tCheck {} Dataset For any Correlation between features (Categorical features converted into Numerics): \n".format(dataDescription))
+    print("\n\tCheck {} Dataset For any Correlation between features : \n".format(dataDescription))
     print(dataset.corr())
     # Correlation analysis - a graphical representation of possible correlation of data
     plt.figure(figsize=(12,8))
@@ -67,3 +86,24 @@ def CheckDatasetForCorrelation(dataset, dataDescription):
     plt.xlabel("\nX Label\n")
     plt.ylabel("\nY Label\n")
     plt.show()
+
+
+
+
+def DisplayVisualDataFrameInfo(dataset, dataDescription):
+    
+    # Display Histograms for each attribute in dataset
+    dataset.hist()
+    plt.show()
+
+    # box and whisker plots
+    dataset.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
+    plt.show()
+
+    # scatter plot matrix
+    scatter_matrix(dataset)
+    plt.show()
+
+
+
+

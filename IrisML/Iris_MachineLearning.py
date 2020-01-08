@@ -15,20 +15,43 @@
 
 
 ## Module Imports for Machine Learning in Python
+ 
+# Python version
+import sys
 
-import numpy as np
-import pandas as pd
+import scipy
+import numpy
+import matplotlib
+import pandas
+import sklearn
 
+# Check the versions of libraries
+# Print values to console for verification
+#print('Python: {}'.format(sys.version))
+#print('scipy: {}'.format(scipy.__version__))
+#print('numpy: {}'.format(numpy.__version__))
+#print('matplotlib: {}'.format(matplotlib.__version__))
+#print('pandas: {}'.format(pandas.__version__))
+#print('sklearn: {}'.format(sklearn.__version__))
+
+
+# Load libraries
+
+from pandas import read_csv
+from pandas.plotting import scatter_matrix
+from matplotlib import pyplot
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import GridSearchCV
-from sklearn import metrics
-from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
-from imblearn.over_sampling import SMOTE
-from sklearn.ensemble import RandomForestClassifier
-import matplotlib.pyplot as plt
-import seaborn as sns
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
 
 
 ## Module Imports for Python GUI widgets
@@ -45,20 +68,23 @@ from Iris_DataPreProcessing import *
 def Main_IrisML():
 
     # Set up file identifier for use in Console Print statements and graphical output
-    # sDatasetDescription = "Irish Flower"
-    sDatasetDescription = GetDatasetDescription()
+    sDatasetDescription = "Flower Iris"
+    #sDatasetDescription = GetDatasetDescription()
 
     # Read CSV file and return dataset
-    df_Iris = ReadDataframe()
+    df_Iris, dfColNames, sDSClassCol = ReadDataframe()
 
-    # Display some basic initial statistics about dataset
+    # Display basic initial statistics about dataset
     # This data will be used to inform follow up data cleansing actions
-    DisplayBasicDataFrameInfo(df_Iris, sDatasetDescription)
+    DisplayBasicDataFrameInfo(df_Iris, sDatasetDescription, sDSClassCol)
 
-    # Check for Correlation before all features converted to numeric
-    CheckDatasetForCorrelation(df_Iris, sDatasetDescription + " (BEFORE Categorical Conversion)")
+    # Display visual representations of the dataset attributes
+    # These representations will also help with decisions on pre-modellling
+    # data manipulation and algorithm selection / execution
+    DisplayVisualDataFrameInfo(df_Iris, sDatasetDescription)
 
-    df_FinalIris = PreSplitDataManipulation(df_Iris, sDatasetDescription)
+    # Amend the Dataset so that modelling algorithms can be successfully applied
+    df_FinalIris = PreSplitDataManipulation(df_Iris, sDatasetDescription, dfColNames, sDSClassCol)
 
 
 
