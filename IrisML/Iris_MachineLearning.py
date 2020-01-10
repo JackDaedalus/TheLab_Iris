@@ -60,12 +60,22 @@ from Iris_GUI import *
 ## Module Imports for custom Python code to read and analyse dataset
 from Iris_LoadandAnalyseData import *
 
-## Module Imports for custom Python code to pre=process dataset before modelling
+## Module Imports for custom Python code to pre-process dataset before modelling
 from Iris_DataPreProcessing import *
+
+## Module Imports for custom Python code to evaluate and compare modelling algorithms
+from Iris_AlgorithmEvaluationAndComparison import *
 
 
 
 def Main_IrisML():
+    # Set PyCharm Display Option
+    # This is done to improve console display
+    # for use in documentented screen shots
+    desired_width = 320
+    pd.set_option('display.width', 400)
+    np.set_printoptions(linewidth=10)
+    pd.set_option('display.max_columns', 15)
 
     # Set up file identifier for use in Console Print statements and graphical output
     sDatasetDescription = "Flower Iris"
@@ -76,15 +86,24 @@ def Main_IrisML():
 
     # Display basic initial statistics about dataset
     # This data will be used to inform follow up data cleansing actions
-    DisplayBasicDataFrameInfo(df_Iris, sDatasetDescription, sDSClassCol)
+    # DisplayBasicDataFrameInfo(df_Iris, sDatasetDescription, sDSClassCol)
 
     # Display visual representations of the dataset attributes
     # These representations will also help with decisions on pre-modellling
     # data manipulation and algorithm selection / execution
-    DisplayVisualDataFrameInfo(df_Iris, sDatasetDescription)
+    # DisplayVisualDataFrameInfo(df_Iris, sDatasetDescription)
 
     # Amend the Dataset so that modelling algorithms can be successfully applied
     df_FinalIris = PreSplitDataManipulation(df_Iris, sDatasetDescription, dfColNames, sDSClassCol)
+
+    # Divide dataset into label and feature sets (feature set is standardised)
+    X_Scaled, Y = CreateLableAndFeatureSet(df_FinalIris, sDatasetDescription, sDSClassCol)
+
+    # Split dataset into training and test data
+    X_train, X_test, Y_train, Y_test= CreateTrainingAndTestData(X_Scaled, Y, sDatasetDescription)
+
+    # Evaluate different algorithm models
+    EvaluateAndCompareAlgorithms(X_train, Y_train, sDatasetDescription)
 
 
 

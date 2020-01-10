@@ -15,6 +15,8 @@
 ## Module Imports for custom Python code to read and analyse dataset
 from Iris_LoadandAnalyseData import *
 
+## Module Imports for Machine Learning in Python
+from sklearn.preprocessing import StandardScaler
 
 
 def ConvertCategoricalFeatures(column):
@@ -35,8 +37,13 @@ def PreSplitDataManipulation(dataset, datasetDescription, sDFColumnNames, sClass
     CheckQualityOfDataset(dataset, datasetDescription, sDFColumnNames)
 
     # Converting Categorical features into Numerical features
-    final_data = ConvertCategoricalFeaturesInDataset(dataset, datasetDescription, sClassCol)
+    dsConvertedDataset = ConvertCategoricalFeaturesInDataset(dataset, datasetDescription, sClassCol)
 
+    # Check distribution of Classification / Label Data
+    CheckDatasetDistribution(dsConvertedDataset, datasetDescription, sClassCol, 3)
+
+
+    final_data = dsConvertedDataset
 
 
     return final_data
@@ -88,10 +95,67 @@ def ConvertCategoricalFeaturesInDataset(dataset, datasetDescription, sClass):
     
 
     # Check for Correlation after all features converted to numeric
-    CheckDatasetForCorrelation(dfConvertedDS, datasetDescription + " (AFTER Categorical Conversion)")
+    # CheckDatasetForCorrelation(dfConvertedDS, datasetDescription + " (AFTER Categorical Conversion)")
 
 
     return dfConvertedDS
 
 
 
+
+def CheckDatasetDistribution(dataset, datasetDescription, sClass, iNumOfClasses):
+
+    # Check distribution of classifications / labels
+    # Check that the observation of any outcome is not too rare
+    num_obs = len(dataset)
+
+    # Print distribution percentages
+    print("\n\n\nDistribution of Classification/Label data in {} Dataset : \n".format(datasetDescription))
+    iCount = 0 
+    while iCount < iNumOfClasses:
+
+        num_class = len(dataset.loc[dataset[sClass] == iCount]) # Iterate through classifications
+        print("Number of Classification {2} : {0} ({1:2.2f}%)\n".format(num_class, (num_class/num_obs) * 100, iCount))
+        iCount += 1
+
+
+
+
+def CreateLableAndFeatureSet(final_data, dataDescription, sClass):
+
+    # Dividing dataset into label and feature sets
+    X = final_data.drop(sClass, axis = 1) # Features
+    Y = final_data[sClass] # Labels
+
+    print("\n\tDimentions of Label and Feature Dataset for {}".format(dataDescription))
+    print(X.shape)
+    print(Y.shape)
+    print("\n\tFeatured + Labeled - {} Dataset Head Rows X + Y : \n".format(dataDescription))
+    print(X.head(2))
+    print(Y.head(2))
+
+    # Normalise the data to prevent large differences in absolute feature values skewing the model
+    # results
+    X_scaled = X
+    #X_scaled = NormaliseTrainingData(X, dataDescription)
+
+
+    return X_scaled, Y
+
+
+
+def NormaliseTrainingData(X, dataDescription):
+
+    print("\n\tScaling the Features for {} dataset..".format(dataDescription))
+
+    # Normalizing numerical features so that each feature has mean 0 and variance 1
+    feature_scaler = StandardScaler()
+    X_scaled = feature_scaler.fit_transform(X)
+    #print("\nPre-Scaled Features - {} Dataset Head Rows : \n".format(dataDescription))
+    #print(X.head(3))
+
+    #print("\nPost-Scaled Features - {} Dataset Head Rows : \n".format(dataDescription))
+    #print(X_scaled.view())
+
+
+    return X_scaled

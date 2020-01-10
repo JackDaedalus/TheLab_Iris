@@ -22,6 +22,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CA2.py" />
+    <Compile Include="Iris_AlgorithmEvaluationAndComparison.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Iris_DataPreProcessing.py">
       <SubType>Code</SubType>
     </Compile>
