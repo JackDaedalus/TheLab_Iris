@@ -95,7 +95,7 @@ def ConvertCategoricalFeaturesInDataset(dataset, datasetDescription, sClass):
     
 
     # Check for Correlation after all features converted to numeric
-    # CheckDatasetForCorrelation(dfConvertedDS, datasetDescription + " (AFTER Categorical Conversion)")
+    CheckDatasetForCorrelation(dfConvertedDS, datasetDescription + " (AFTER Categorical Conversion)")
 
 
     return dfConvertedDS

@@ -73,7 +73,7 @@ def EvaluateAndCompareAlgorithms(X_train, Y_train, dataDescription):
     models.append(('Support Vector Machines ', SVC(gamma='auto')))
     
     # Test Values and evaluation metric
-    print("\n\nBuild and evaluate models for {} dataset : \n".format(dataDescription))
+    print("\n\nBuild and Evaluate Various Models for {} dataset : \n".format(dataDescription))
     results = []
     names = []
     iCount = 1

@@ -86,12 +86,12 @@ def Main_IrisML():
 
     # Display basic initial statistics about dataset
     # This data will be used to inform follow up data cleansing actions
-    # DisplayBasicDataFrameInfo(df_Iris, sDatasetDescription, sDSClassCol)
+    DisplayBasicDataFrameInfo(df_Iris, sDatasetDescription, sDSClassCol)
 
     # Display visual representations of the dataset attributes
     # These representations will also help with decisions on pre-modellling
     # data manipulation and algorithm selection / execution
-    # DisplayVisualDataFrameInfo(df_Iris, sDatasetDescription)
+    DisplayVisualDataFrameInfo(df_Iris, sDatasetDescription)
 
     # Amend the Dataset so that modelling algorithms can be successfully applied
     df_FinalIris = PreSplitDataManipulation(df_Iris, sDatasetDescription, dfColNames, sDSClassCol)
