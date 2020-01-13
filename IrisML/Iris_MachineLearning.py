@@ -66,6 +66,9 @@ from Iris_DataPreProcessing import *
 ## Module Imports for custom Python code to evaluate and compare modelling algorithms
 from Iris_AlgorithmEvaluationAndComparison import *
 
+## Module Imports for custom Python code to evaluate and compare modelling algorithms
+from Iris_PredictiveModelResults import *
+
 
 
 def Main_IrisML():
@@ -104,6 +107,9 @@ def Main_IrisML():
 
     # Evaluate different algorithm models
     EvaluateAndCompareAlgorithms(X_train, Y_train, sDatasetDescription)
+
+    # Evaluate Predictive models againist test data
+    EvaluateAndPredictiveModel(X_train, Y_train, X_test, Y_test, sDatasetDescription)
 
 
 

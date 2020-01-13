@@ -88,4 +88,4 @@ def EvaluateAndCompareAlgorithms(X_train, Y_train, dataDescription):
     # Visual Comparison of Algorithms
     plt.boxplot(results, labels=names)
     plt.title('Algorithm Comparison')
-    plt.show()
+    # plt.show()

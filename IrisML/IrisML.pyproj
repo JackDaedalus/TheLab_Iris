@@ -36,6 +36,9 @@
     </Compile>
     <Compile Include="Iris_MachineLearning.py" />
     <Compile Include="IrisML.py" />
+    <Compile Include="Iris_PredictiveModelResults.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Madsen_Durina_Finnegan.py" />
     <Compile Include="GUITest.py">
       <SubType>Code</SubType>
