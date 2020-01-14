@@ -73,7 +73,7 @@ def EvaluateAndCompareAlgorithms(X_train, Y_train, dataDescription):
     models.append(('Support Vector Machines ', SVC(gamma='auto')))
     
     # Test Values and evaluation metric
-    print("\n\nBuild and evaluate models for {} dataset : \n".format(dataDescription))
+    print("\n\n\tBuild and evaluate models for {} dataset : \n".format(dataDescription))
     results = []
     names = []
     iCount = 1
@@ -82,10 +82,10 @@ def EvaluateAndCompareAlgorithms(X_train, Y_train, dataDescription):
         cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring='accuracy')
         results.append(cv_results)
         names.append(name)
-        print('\n%s %s: %f (%f)' % (iCount, name, cv_results.mean(), cv_results.std()))
+        print('\n\t%s %s: %f (%f)' % (iCount, name, cv_results.mean(), cv_results.std()))
         iCount +=1
 
     # Visual Comparison of Algorithms
-    plt.boxplot(results, labels=names)
-    plt.title('Algorithm Comparison')
+    # plt.boxplot(results, labels=names)
+    # plt.title('Algorithm Comparison')
     # plt.show()
