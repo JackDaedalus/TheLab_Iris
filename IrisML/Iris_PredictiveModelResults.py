@@ -2,7 +2,7 @@
 
 ## B8IT10N Data Analytics  Machine Learning Workflow Program
 
-## February 2019 
+## February 2020 + March 2020 in Visual Studio
 
 ## Ciaran Finnegan - Student No. 10524150
 
